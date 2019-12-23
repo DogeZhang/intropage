@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <p class="title">{{msg}}</p>
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      msg: 'Deep Learning-Based Ship Recognition System'
+    }
+  }
 }
 </script>
 
@@ -16,8 +21,21 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: rgb(4, 22, 77);
+  padding-top: 25px;
+  height: 100%;
+}
+.title {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 36px;
+}
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* background: url('./assets/background3.jpg') 100% center; */
+  background: url('./assets/background2.jpg');
+  background-repeat:  no-repeat;
+  background-size: 100% 120%;
 }
 </style>
