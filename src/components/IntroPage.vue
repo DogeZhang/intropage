@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     url (index) {
-      return require(`@/assets/${this.imgList[0].url}`)
+      return require(`@/assets/${this.imgList[index].url}`)
     },
     handleRemove (file, fileList) {
       console.log(file, fileList)
@@ -198,8 +198,14 @@ a {
 .img-container .result-percentage{
   height: 50px;
 }
+.img-container .result-percentage p {
+  font-size: 16px;
+  line-height: 16px;
+  height: 16px;
+  margin: 20px 0 0 0;
+}
 .img-container .result{
-  height: 280px;
+  height: 260px;
   width: 300px;
   padding: 10px;
   position: absolute;
