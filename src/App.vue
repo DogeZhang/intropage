@@ -21,20 +21,20 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: rgb(4, 22, 77);
+  color: #ddd;
   padding-top: 25px;
   height: 100%;
 }
 .title {
   text-align: center;
-  font-size: 36px;
+  font-size: 42px;
 }
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  /* background: url('./assets/background3.jpg') 100% center; */
   background: url('./assets/background2.jpg');
+  /* background-color: rgb(86, 89, 94); */
   background-repeat:  no-repeat;
   background-size: 100% 120%;
 }
