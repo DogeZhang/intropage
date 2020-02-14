@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.upload_image, name='upload_image'),
+    path('predict/', views.predict_image, name='predict_image'),
     path('<str:file_name>', views.get_image, name="get_image"),
+    path('', views.upload_image, name='upload_image'),
 ]

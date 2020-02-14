@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 class ProcessImage:
@@ -116,6 +115,7 @@ class ProcessImage:
                     img[i, j] = [0, 0, 0]
         output = Image.fromarray(img.astype('uint8')).convert('RGB')
         output.save(self.filePath + "o_" + self.fileName)
+        output.save(self.filePath + "/predict/o_" + self.fileName)
         self.filePaths.append("o_" + self.fileName)
         print("将轮廓加入至原始图片中: " + self.filePath + "o_" + self.fileName)
 

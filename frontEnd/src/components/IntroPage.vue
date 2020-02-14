@@ -33,7 +33,10 @@
           <div class="img-container">
             <el-card :body-style="{ padding: '0px' }">
               <!-- <img v-bind:src="imgList[0].url" class="show-img"> -->
-              <img :src="imgList[0].url" alt="" class="show-img">
+              <div v-loading="loading">
+                <img :src="imgList[0].url" class="show-img">
+                <!-- <img src="../assets/images/EXAMPLE.jpg" class="show-img"> -->
+              </div>
               <div style="padding: 14px;">
                 <span>Original Image</span>
                 <p>{{introImg[0]}}<br></p>
@@ -83,15 +86,15 @@
               <h3>Recongnition Result: </h3>
               <div class="result-percentage">
                 <p>Bulk Carrier</p>
-                <el-progress :stroke-width="14" :color="customColors" :percentage="percentage[0]"></el-progress>
+                <el-progress :stroke-width="14" :color="customColors" :percentage="bulk"></el-progress>
               </div>
               <div class="result-percentage">
                 <p>Container ship</p>
-                <el-progress :stroke-width="14" :color="customColors" :percentage="percentage[1]"></el-progress>
+                <el-progress :stroke-width="14" :color="customColors" :percentage="container"></el-progress>
               </div>
               <div class="result-percentage">
                 <p>cruise ship</p>
-                <el-progress :stroke-width="14" :color="customColors" :percentage="percentage[2]"></el-progress>
+                <el-progress :stroke-width="14" :color="customColors" :percentage="cruise"></el-progress>
               </div>
             </div>
             <!-- <img v-bind:src="imgList[0].url" class="show-img"> -->
@@ -119,21 +122,24 @@ export default {
       imgList: [
         {
           name: 'original',
-          url: 'original.jpg'
+          url: 'http://localhost:8000/backend/EXAMPLE.jpg'
         },
         {
           name: 'outline',
-          url: 'outline.jpg'
+          url: 'http://localhost:8000/backend/d_EXAMPLE.jpg'
         },
         {
           name: 'original_outline',
-          url: 'original_outline.jpg'
+          url: 'http://localhost:8000/backend/o_EXAMPLE.jpg'
         }
       ],
       result: ['Bulk Carrier', 'Kind Two', 'Kind Three'],
       tips: ['First step: upload a boat imge', 'Second step: prepare the input image', 'Final step: recognize the kind of this boat'],
       introImg: ['This is the original imge.', 'In this step, we calculate the Outline by grayscale.', 'Finally, the orignal image and ouline image are combined to get the final input image.'],
-      percentage: [80, 25, 2],
+      percentage: [],
+      bulk: 0,
+      container: 0,
+      cruise: 0,
       customColors: [
         {color: '#f56c6c', percentage: 20},
         {color: '#e6a23c', percentage: 40},
@@ -141,7 +147,8 @@ export default {
         {color: '#5cb87a', percentage: 80},
         {color: '#5cb87a', percentage: 100}
       ],
-      uploadUrl: 'http://localhost:8000/backend/'
+      uploadUrl: 'http://localhost:8000/backend/',
+      loading: false
     }
   },
   methods: {
@@ -176,16 +183,28 @@ export default {
     // 自定义上传图片方法（未用）
     uploadImage (content) {
       var form = new FormData()
+      var t = this.$axios
       form.append('file', content.file)
       this.$axios.post(content.action, form)
         .then(res => {
+          console.log('post img --> res')
           console.log(res)
           console.log(res.data['original'])
           this.imgList[0].url = 'http://localhost:8000/backend/' + res.data['original']
           this.imgList[1].url = 'http://localhost:8000/backend/' + res.data['outline']
           this.imgList[2].url = 'http://localhost:8000/backend/' + res.data['original_outline']
+          t.get('predict/')
+            .then(res => {
+              console.log('predict --> res')
+              console.log(res)
+            })
+            .catch(error => {
+              console.log('predict --> error')
+              console.log(error)
+            })
         })
         .catch(error => {
+          console.log('post img --> error')
           console.log(error)
         })
     },
@@ -195,6 +214,24 @@ export default {
       this.imgList[0].url = 'http://localhost:8000/backend/' + response['original']
       this.imgList[1].url = 'http://localhost:8000/backend/' + response['outline']
       this.imgList[2].url = 'http://localhost:8000/backend/' + response['original_outline']
+      this.$axios.get('/backend/predict/')
+        .then(res => {
+          console.log('predict --> res')
+          console.log(res)
+          this.bulk = res.data['bulk']
+          this.container = res.data['container']
+          this.cruise = res.data['cruise']
+        })
+        .catch(error => {
+          console.log('predict --> error')
+          console.log(error)
+        })
+    },
+    predict () {
+      console.log(this.percentage[0])
+      this.bulk = 34
+      this.container = 35
+      this.cruise = 97
     }
   }
 }
