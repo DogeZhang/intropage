@@ -4,12 +4,12 @@ This is a project for Ship Recognize.
 ## 目录
 `backend/`  后端：运行`Django`与图像处理程序
 
-`frontend/` `前端`：`Vue.js`项目，执行交互任务
+`frontend/` 前端：`Vue.js`项目，执行交互任务
 
 ## 环境：
 ### CPU
 * python 3.6.5
-* django 2.2.5
+* Django 2.2.5
 * tensorflow 1.14.0
 * keras 2.2.5
 * numpy 1.16.4
@@ -20,10 +20,11 @@ This is a project for Ship Recognize.
 * CUDA 10.0
 * cudnn v7.6.5.32
 * python 3.6.5
+* Django 2.2.5
 * tensorflow-gpu 2.0.0
 * Keras 2.3.0
 * numpy 1.18.1
-* Django 2.2.5
+
 
 > 因为小米笔记本显卡无法安装公版驱动的缘故 
 > * CUDA 10.1及以上会出现不支持驱动报错
