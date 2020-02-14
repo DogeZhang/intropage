@@ -101,7 +101,7 @@
               <img :src="imgList[0].url" alt="" class="show-result-img">
             </div>
             <div style="padding: 14px;">
-              <span>This boat is <span style="color: red;">{{result[0]}}</span></span>
+              <span>This boat is <span style="color: red;">{{predict_result}}</span></span>
             </div>
           </el-card>
         </div>
@@ -134,7 +134,8 @@ export default {
           url: 'http://localhost:8000/backend/o_EXAMPLE.jpg'
         }
       ],
-      result: ['Bulk Carrier', 'Kind Two', 'Kind Three'],
+      classes: ['Bulk Carrier', 'container ship', 'cruise ship'],
+      predict_result: '? ? ?',
       tips: ['First step: upload a boat imge', 'Second step: prepare the input image', 'Final step: recognize the kind of this boat'],
       introImg: ['This is the original imge.', 'In this step, we calculate the Outline by grayscale.', 'Finally, the orignal image and ouline image are combined to get the final input image.'],
       percentage: [],
@@ -227,6 +228,19 @@ export default {
           this.container = res.data['container']
           this.cruise = res.data['cruise']
           this.loading_B = false
+          if (this.bulk >= this.container) {
+            if (this.bulk >= this.cruise) {
+              this.predict_result = this.classes[0]
+            } else {
+              this.predict_result = this.classes[2]
+            }
+          } else {
+            if (this.container >= this.cruise) {
+              this.predict_result = this.classes[1]
+            } else {
+              this.predict_result = this.classes[2]
+            }
+          }
         })
         .catch(error => {
           console.log('predict --> error')
