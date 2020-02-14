@@ -32,10 +32,8 @@
         <el-col :span="8">
           <div class="img-container">
             <el-card :body-style="{ padding: '0px' }">
-              <!-- <img v-bind:src="imgList[0].url" class="show-img"> -->
-              <div v-loading="loading">
-                <img :src="imgList[0].url" class="show-img">
-                <!-- <img src="../assets/images/EXAMPLE.jpg" class="show-img"> -->
+              <div v-loading="loading_A">
+                <img :src="imgList[0].url" alt="" class="show-img">
               </div>
               <div style="padding: 14px;">
                 <span>Original Image</span>
@@ -44,13 +42,12 @@
             </el-card>
           </div>
         </el-col>
-        <!-- <el-col :span="1">
-          <img style="width: 80px; margin-top: 80px; margin-left: 10px;" src="@/assets/pointer2.png" alt="">
-        </el-col> -->
         <el-col :span="8">
           <div class="img-container">
             <el-card :body-style="{ padding: '0px' }">
-              <img :src="imgList[1].url" alt="" class="show-img">
+              <div v-loading="loading_A">
+                <img :src="imgList[1].url" alt="" class="show-img">
+              </div>
               <div style="padding: 14px;">
                 <span>Outline</span>
                 <p>{{introImg[1]}}</p>
@@ -64,7 +61,9 @@
         <el-col :span="8">
           <div class="img-container">
             <el-card :body-style="{ padding: '0px' }">
-              <img :src="imgList[2].url" alt="" class="show-img">
+              <div v-loading="loading_A">
+                <img :src="imgList[2].url" alt="" class="show-img">
+              </div>
               <div style="padding: 14px;">
                 <span>Original Image + Outline</span>
                 <p>{{introImg[2]}}</p>
@@ -98,7 +97,9 @@
               </div>
             </div>
             <!-- <img v-bind:src="imgList[0].url" class="show-img"> -->
-            <img :src="imgList[0].url" alt="" class="show-result-img">
+            <div v-loading="loading_B">
+              <img :src="imgList[0].url" alt="" class="show-result-img">
+            </div>
             <div style="padding: 14px;">
               <span>This boat is <span style="color: red;">{{result[0]}}</span></span>
             </div>
@@ -148,7 +149,8 @@ export default {
         {color: '#5cb87a', percentage: 100}
       ],
       uploadUrl: 'http://localhost:8000/backend/',
-      loading: false
+      loading_A: false,
+      loading_B: false
     }
   },
   methods: {
@@ -166,13 +168,15 @@ export default {
       this.isJPGPNG = false
       if (file.type === 'image/jpeg' || file.type === 'image/png') {
         this.isJPGPNG = true
+        this.loading_A = true
+        this.loading_B = true
       }
       if (!this.isJPGPNG) {
         this.$message.warning(`Only JPG / PNG files are allowed`)
       }
     },
     handleExceed (files, fileList) {
-      this.$message.warning(`The number of files is currently limited to one, ${files.length} files are selected this time, ${files.length + fileList.length} files are selected in total.`)
+      this.$message.warning(`The number of files is currently limited to one, ${files.length} files are selected this time, ${files.length + fileList.length} files are selected in total. Please delete ${fileList[0].name} first.`)
     },
     beforeRemove (file, fileList) {
       return this.$confirm(`Delect ${file.name}？`)
@@ -214,6 +218,7 @@ export default {
       this.imgList[0].url = 'http://localhost:8000/backend/' + response['original']
       this.imgList[1].url = 'http://localhost:8000/backend/' + response['outline']
       this.imgList[2].url = 'http://localhost:8000/backend/' + response['original_outline']
+      this.loading_A = false
       this.$axios.get('/backend/predict/')
         .then(res => {
           console.log('predict --> res')
@@ -221,6 +226,7 @@ export default {
           this.bulk = res.data['bulk']
           this.container = res.data['container']
           this.cruise = res.data['cruise']
+          this.loading_B = false
         })
         .catch(error => {
           console.log('predict --> error')
