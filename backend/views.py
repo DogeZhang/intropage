@@ -1,11 +1,7 @@
 import os
-
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-
 from backend import predict
 from backend.ImageProcessor.ProcessImage import ProcessImage
-
 from intropage.settings import BASE_DIR
 from keras.preprocessing import image
 
