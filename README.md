@@ -8,22 +8,24 @@ This is a project for Ship Recognize.
 
 ## 环境：
 ### CPU
-* python 3.6.5
-* Django 2.2.5
-* tensorflow 1.14.0
-* keras 2.2.5
-* numpy 1.16.4
+ * python 3.6.5
+ * Django 2.2.5
+ * django-cors-headers 3.2.1
+ * tensorflow 1.14.0
+ * keras 2.2.5
+ * numpy 1.16.4
 
 ### GPU
-* Windows 10
-* NVIDIA MX250
-* CUDA 10.0
-* cudnn v7.6.5.32
-* python 3.6.5
-* Django 2.2.5
-* tensorflow-gpu 2.0.0
-* Keras 2.3.0
-* numpy 1.18.1
+ * Windows 10
+ * NVIDIA MX250
+ * CUDA 10.0
+ * cudnn v7.6.5.32
+ * python 3.6.5
+ * Django 2.2.5
+ * django-cors-headers 3.2.1
+ * tensorflow-gpu 2.0.0
+ * Keras 2.3.0
+ * numpy 1.18.1
 
 
 > 因为小米笔记本显卡无法安装公版驱动的缘故 
@@ -40,3 +42,41 @@ AttributeError: '_thread._local' object has no attribute 'value'
 > Keras降级至2.2.5会与tensorflow-gpu冲突。
  
 > Django + tensorflow 1.14.0 + keras 2.2.5 运行正常
+
+## 安装
+### 前端
+
+ * 进入 `frondend/`
+ * 安装所需包
+```
+npm install
+```
+ * 运行
+```
+npm run dev
+```
+ * webpack 打包
+```
+npm run build
+```
+ * * 打包后进入`frontend/dist/index.html`
+ 
+ ### 后端
+ 
+ * conda
+
+```
+conda create -n introPage python=3.6
+conda activate introPage
+```
+
+ * pip （推荐使用国内源）
+```
+pip install XXX==VVV -i https://mirrors.aliyun.com/pypi/simple
+```
+
+ * 执行
+ * 进入 `backend/`
+```
+python manage.py runserver
+```
