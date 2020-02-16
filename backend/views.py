@@ -5,28 +5,17 @@ from backend.ImageProcessor.ProcessImage import ProcessImage
 from intropage.settings import BASE_DIR
 from keras.preprocessing import image
 
-
+# 保存前端传输图片
 file_path = BASE_DIR + "\\backend\\static\\img\\"
-example_path = BASE_DIR + "\\backend\\static\\example\\"
-
-img_path = os.path.join(BASE_DIR, 'backend', 'static', 'img', 'predict')
-# 检索待检测图片
-files = os.listdir(img_path.replace("\\", '/'))
-# 判断待检测图片是否唯一
-if len(files) != 1:
-    print("ResNet50/ResNetPredict--wrong: multiple files.")
+if os.path.exists(file_path):
+    print("图片文件夹路径正确。")
 else:
-    # 判断是否为图片
-    if files[0].endswith('jpg'):
-        path = os.path.join(img_path, files[0])
-        img = image.load_img(path.replace("\\", '/'), target_size=(224, 224))
-        img = image.img_to_array(img)
-        pred = predict(img)
-        print("input file predict result: " + files[0])
-        print(pred)
-    else:
-        print("ResNet50/ResNetPredict--wrong: no jpg file.")
-
+    print("图片文件夹不存在，正在创建。")
+    os.mkdir(file_path)
+    os.mkdir(os.path.join(file_path, "predict"))
+    print("创建成功。")
+# 示例图片保存路径
+example_path = BASE_DIR + "\\backend\\static\\example\\"
 
 def upload_image(request):
     # 从前端得到图片并保存
