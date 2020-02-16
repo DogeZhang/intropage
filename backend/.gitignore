@@ -3,4 +3,4 @@ __pycache__/
 *$py.class
 *.pyc
 *.h5
-/static/img
+/static/img/
