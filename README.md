@@ -36,12 +36,17 @@ This is a project for Ship Recognize.
 > 能够正常使用GPU运行网络。
 
 > Django运行时无法正常调用Keras 2.3.0 报错：
-```angular2
+```
 AttributeError: '_thread._local' object has no attribute 'value'
 ```
-> Keras降级至2.2.5会与tensorflow-gpu冲突。
- 
-> Django + tensorflow 1.14.0 + keras 2.2.5 运行正常
+> 因此Django会与Keras2.3.0发生冲突，无法同时运行。 Keras降级至2.2.5会与tensorflow-gpu冲突。
+>
+> 解决办法：在不使用Django的情况下，使用GPU训练，并保存网络模型。
+> 在执行阶段使用CPU计算网络预测。
+
+> **Django + tensorflow 1.14.0 + keras 2.2.5 运行正常**
+>
+> **建议安装tensorflow 1.14 版本与 Keras 2.2.5 版本**
 
 ## 安装
 ### 前端
