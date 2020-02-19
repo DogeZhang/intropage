@@ -40,7 +40,7 @@ def upload_image(request):
                     img.write(c)
         except Exception as e:
             print(e)
-        print(file_name)
+        print("获得图片：" + file_name)
         # 使用ImageProcessor处理图片，生成原图+轮廓图+混合图
         processor = ProcessImage(file_path, file_name)
         processor.exec()

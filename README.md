@@ -49,11 +49,38 @@ AttributeError: '_thread._local' object has no attribute 'value'
 > **建议安装tensorflow 1.14 版本与 Keras 2.2.5 版本**
 
 ## 安装
+
+### 搭建环境
+
+ * 运行环境
+ * * 安装 Nodejs
+ * * 安装 anaconda
+ * * 创建虚拟环境：
+ ```
+conda create -n introPage python=3.6
+conda activate introPage
+pip install Django==2.2.5 django-cors-headers numpy==1.16.4 keras==2.2.5 tensorflow==1.14.0 pillow
+ ```
+
+如果下载速度较慢可以使用镜像源
+```
+pip install Django==2.2.5 django-cors-headers numpy==1.16.4 keras==2.2.5 tensorflow==1.14.0 pillow -i https://mirrors.aliyun.com/pypi/simple
+```
+
+ * 获取项目
+ 下载zip 或 运行指令：
+```
+git clone https://github.com/DogeZhang/intropage.git
+cd intropage
+```
+ 
+ 
 ### 前端
 
- * 进入 `frondend/`
+ * 进入 `frontend/`
  * 安装所需包
 ```
+cd frontend
 npm install
 ```
  * 运行
@@ -67,18 +94,6 @@ npm run build
  * * 打包后进入`frontend/dist/index.html`
  
  ### 后端
- 
- * conda
-
-```
-conda create -n introPage python=3.6
-conda activate introPage
-```
-
- * pip （推荐使用国内源）
-```
-pip install XXX==VVV -i https://mirrors.aliyun.com/pypi/simple
-```
 
  * 执行
  * 进入 `backend/`
