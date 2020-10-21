@@ -1,6 +1,13 @@
 # intropage
 This is a project for Ship Recognize.
 
+基于轮廓学习的船舶识别系统
+提出轮廓增强算法，增强ResNet、DenseNet、VGG等网络的识别准确率
+
+论文发表于 `2020 IW3C2` (International World Wide Web Conference Committee) (CCF Rank A)
+
+> Contour Accentuation for Transfer Learning-Based Ship Recognition Method
+
 ## 目录
 `backend/`  后端：运行`Django`与图像处理程序
 
